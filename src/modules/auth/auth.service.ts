@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt";
 import { pool } from "../../config/db";
 import generateToken from "../../utils/generateToken";
+import type { IAuthBody } from "./auth.interface";
 
-const signupUser = async (payload: any) => {
+const signupUserFromDB = async (payload: IAuthBody) => {
   const { name, email, password, role } = payload;
 
   // check existing user
@@ -14,7 +15,6 @@ const signupUser = async (payload: any) => {
   if (existingUser.rows.length > 0) {
     throw new Error("Email already exists");
   }
-
   // hash password
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -27,11 +27,11 @@ const signupUser = async (payload: any) => {
     `,
     [name, email, hashedPassword, role]
   );
-
-  return result.rows[0];
+  console.log("result here:", result)
+  return result;
 };
 
-const loginUser = async (payload: any) => {
+const loginUserFromDB = async (payload: IAuthBody) => {
   const { email, password } = payload;
 
   // find user
@@ -77,7 +77,7 @@ const loginUser = async (payload: any) => {
   };
 };
 
-export const AuthService = {
-      signupUser,
-      loginUser,
+export const AuthServices = {
+      signupUserFromDB,
+      loginUserFromDB,
 }
