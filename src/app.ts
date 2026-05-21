@@ -1,6 +1,7 @@
 import express, { type Application, type Request, type Response } from 'express'
 import globalErrorHandler from './middleware/globalErrorHandler';
 import { AuthRoutes } from './modules/auth/auth.route';
+import { IssueRoutes } from './modules/issues/issue.route';
 const app: Application = express()
 app.use(express.json())
 
@@ -17,6 +18,8 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use("/api/auth", AuthRoutes);
+
+app.use("/api/issues", IssueRoutes);
 
 
 

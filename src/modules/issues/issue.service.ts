@@ -2,10 +2,7 @@ import { pool } from "../../config/db";
 import AppError from "../../utils/AppError";
 import type { IIssueBody } from "./issue.interface";
 
-const createIssueIntoDB = async (
-  payload: IIssueBody,
-  reporterId: number
-) => {
+const createIssueIntoDB = async (payload: IIssueBody, reporterId: number) => {
   const { title, description, type } = payload;
 
   const result = await pool.query(`

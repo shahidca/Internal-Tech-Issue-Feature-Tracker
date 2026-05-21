@@ -1,9 +1,7 @@
-// declare namespace Express {
-//   export interface Request {
-//     user1: {
-//       id: number;
-//       name: string;
-//       role: string;
-//     };
-//   }
-// }
+import type { JwtPayload } from "jsonwebtoken";
+
+declare namespace Express {
+  export interface Request {
+    user: JwtPayload
+  }
+}
