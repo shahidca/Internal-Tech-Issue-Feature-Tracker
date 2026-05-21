@@ -3,6 +3,7 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 import AppError from "../utils/AppError";
 import type { NextFunction, Request, Response } from "express";
+import type { IAuthUser } from "../modules/auth/auth.user.interface";
 
 dotenv.config();
 

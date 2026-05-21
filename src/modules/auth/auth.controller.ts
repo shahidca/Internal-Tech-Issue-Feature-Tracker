@@ -3,10 +3,9 @@ import type { Request, Response } from "express";
 import sendResponse from "../../utils/sendResponse";
 import { AuthServices } from "./auth.service";
 
-const signupUser = async (req: Request, res: Response) => {
-      console.log(req)
-      const result = await AuthServices.signupUserFromDB(req.body);
-  try {   
+const signupUser = async (req: Request, res: Response) => {   
+  try {  
+    const result = await AuthServices.signupUserFromDB(req.body); 
   sendResponse(res, {
     success: true,
     statusCode: 201,
@@ -24,9 +23,9 @@ const signupUser = async (req: Request, res: Response) => {
 };
 
 const loginUser = async (req: Request, res: Response) => {
-  const result = await AuthServices.loginUserFromDB(req.body);
 
   try {
+     const result = await AuthServices.loginUserFromDB(req.body);
     sendResponse(res, {
     success: true,
     statusCode: 200,

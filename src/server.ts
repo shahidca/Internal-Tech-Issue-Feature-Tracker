@@ -3,7 +3,7 @@ import config from "./config/env"
 import { initDbIssues } from "./database/issues"
 import { initDbUser } from "./database/users"
 
-const server = async () =>{
+const server = () =>{
   initDbUser()
   initDbIssues()
   app.listen(config.port, () => {

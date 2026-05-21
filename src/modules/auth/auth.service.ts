@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import { pool } from "../../config/db";
 import generateToken from "../../utils/generateToken";
-import type { IAuthBody } from "./auth.interface";
+import type { IAuthUser } from "./auth.user.interface";
 
-const signupUserFromDB = async (payload: IAuthBody) => {
+const signupUserFromDB = async (payload: IAuthUser) => {
   const { name, email, password, role } = payload;
 
   // check existing user
@@ -27,7 +27,6 @@ const signupUserFromDB = async (payload: IAuthBody) => {
     `,
     [name, email, hashedPassword, role]
   );
-  console.log("result here:", result)
   return result;
 };
 
@@ -71,8 +70,6 @@ const loginUserFromDB = async (payload: IAuthBody) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
     },
   };
 };
