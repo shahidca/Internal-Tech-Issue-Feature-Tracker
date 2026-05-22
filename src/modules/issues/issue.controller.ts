@@ -11,7 +11,7 @@ const createIssue = async (req: Request, res: Response) => {
       success: true,
       statusCode: 201,
       message: "Issue created successfully",
-      data: result,
+      data: result.rows[0],
     });
     } catch (error: any) {
       sendResponse(res, {
@@ -83,7 +83,6 @@ const createIssue = async (req: Request, res: Response) => {
 
   const deleteIssue = async (req: Request, res: Response) => {
    
-
    try {
        await IssueServices.deleteIssueFromDB( req.params.id as string);
        sendResponse(res, {

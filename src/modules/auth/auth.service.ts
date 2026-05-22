@@ -25,12 +25,15 @@ const signupUserFromDB = async (payload: IAuthUser) => {
     VALUES ($1, $2, $3, $4)
     RETURNING *
     `,
+    
     [name, email, hashedPassword, role]
+    
   );
+  delete result.rows[0].password
   return result;
 };
 
-const loginUserFromDB = async (payload: IAuthBody) => {
+const loginUserFromDB = async (payload: IAuthUser) => {
   const { email, password } = payload;
 
   // find user
@@ -52,10 +55,11 @@ const loginUserFromDB = async (payload: IAuthBody) => {
   );
 
   if (!isPasswordMatched) {
-    throw new Error("Invalid credentials");
+    throw new Error("Invalid credentials | wrong password");
   }
 
   // generate token
+  
   const token = generateToken({
     id: user.id,
     name: user.name,

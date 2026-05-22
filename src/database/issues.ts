@@ -23,7 +23,7 @@ export const initDbIssues = async () =>{
 );`)
 console.log('Nenon DB connected successfully from Issues Table!')
       } catch (error) {
-            
+        console.log("Error from Nenon DB", error)    
       }
 
 }

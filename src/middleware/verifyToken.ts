@@ -3,7 +3,7 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 import AppError from "../utils/AppError";
 import type { NextFunction, Request, Response } from "express";
-import type { IAuthUser } from "../modules/auth/auth.user.interface";
+import config from "../config/env";
 
 dotenv.config();
 
@@ -21,14 +21,14 @@ const verifyToken = (
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET as string
+      config.jwt_secret as string
     )as JwtPayload;
 
     req.user = decoded ;
 
     next();
   } catch (error) {
-    next(new AppError("Invalid or expired token", 401));
+    next(new AppError("Invalid or expired token!!", 401));
   }
 };
 
