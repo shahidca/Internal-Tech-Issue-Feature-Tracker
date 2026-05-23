@@ -1,4 +1,3 @@
-
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 import AppError from "../utils/AppError";
@@ -6,7 +5,6 @@ import type { NextFunction, Request, Response } from "express";
 import config from "../config/env";
 
 dotenv.config();
-
 const verifyToken = (
   req: Request,
   res: Response,

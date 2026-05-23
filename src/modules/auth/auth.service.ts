@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 import { pool } from "../../config/db";
 import generateToken from "../../utils/generateToken";
-import type { IAuthUser } from "./auth.user.interface";
+import type { ILoginUser, ISignupUser } from "./auth.user.interface";
 
-const signupUserFromDB = async (payload: IAuthUser) => {
+const signupUserFromDB = async (payload: ISignupUser) => {
   const { name, email, password, role } = payload;
 
   // check existing user
@@ -33,7 +33,7 @@ const signupUserFromDB = async (payload: IAuthUser) => {
   return result;
 };
 
-const loginUserFromDB = async (payload: IAuthUser) => {
+const loginUserFromDB = async (payload: ILoginUser) => {
   const { email, password } = payload;
 
   // find user
@@ -59,23 +59,24 @@ const loginUserFromDB = async (payload: IAuthUser) => {
   }
 
   // generate token
-  
-  const token = generateToken({
+ const token = generateToken({
+  id: user.id,
+  name: user.name,
+  email: user.email,
+  role: user.role,
+});
+
+return {
+  token,
+  user: {
     id: user.id,
     name: user.name,
     email: user.email,
     role: user.role,
-  });
-
-  return {
-    token,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    },
-  };
+    created_at: user.created_at,
+    updated_at: user.updated_at,
+  },
+};
 };
 
 export const AuthServices = {

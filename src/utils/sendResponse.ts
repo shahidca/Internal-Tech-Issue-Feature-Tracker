@@ -1,6 +1,5 @@
 import type { Response } from "express";
 
-
 const sendResponse = <T>(res: Response, data: {
   success: boolean;
   message: string;
